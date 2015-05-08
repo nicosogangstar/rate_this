@@ -1,7 +1,7 @@
 function get_popular(timeFrame, start, end){
 	$.ajax({
 		"method":"POST",
-		"url":"",
+		"url":"popular.py",
 		"data": {
 			"time":timeFrame,
 			"start":start,
@@ -18,20 +18,21 @@ function get_popular(timeFrame, start, end){
 	});
 }
 
-function get_newest(timeFrame, start, end){
+function get_newest(start, end){
 	$.ajax({
 		method:"POST",
-		url:"",
+		url:"newest.py",
 		data: {
-			"time":timeFrame,
+			"start":start,
+			"end":end
 		},
 
 		//return handlers
-		success:function(){
-			
+		success:function( response ){
+			console.log(response);
 		},
 		error:function(){
-			
+			console.log("Kek u ded D:");
 		}		
 	});
 }
