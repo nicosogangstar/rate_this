@@ -1,7 +1,7 @@
 function get_popular(timeFrame, start, end){
 	$.ajax({
 		"method":"POST",
-		"url":"popular.py",
+		"url":"popular",
 		"data": {
 			"time":timeFrame,
 			"start":start,
@@ -14,14 +14,14 @@ function get_popular(timeFrame, start, end){
 		},
 		"error":function(){
 			console.log("Kek u ded D:");
-		}		
+		}
 	});
 }
 
 function get_newest(start, end){
 	$.ajax({
 		method:"POST",
-		url:"newest.py",
+		url:"newest",
 		data: {
 			"start":start,
 			"end":end
