@@ -13,16 +13,17 @@ def make_json_list(arg_list):
 
 @app.route('/popular', methods=['POST'])
 def popular():
-    start      = request.form[]
-    end        = request.form[]
-    time_frame = request.form[]
+    start      = request.form['start']
+    end        = request.form['end']
+    time_frame = request.form['time']
 
     return "QUERY RESULTS"
 
+
 @app.route('/new', methods=['POST'])
 def new():
-    start = request.form[]
-    end   = request.form[]
+    start      = request.form['start']
+    end        = request.form['end']
 
     return "QUERY RESULT"
 
