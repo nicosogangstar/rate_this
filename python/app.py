@@ -18,9 +18,12 @@ def home():
     return "Home Page"
 
 
-@app.route('/popular/<time_frame>')
-def popular(time_frame=None):
+@app.route('/entries/<query_type>/<time_frame>')
+def entries(query_type=None, time_frame=None):
+    # query_type = popular or recent
+    # time_frame = day, month, year, all time
     return "Time Frame"
+
 
 
 if __name__ == '__main__':
