@@ -11,19 +11,23 @@ def make_json_list(arg_list):
     return "'" + list_without_quotes + "'"
 
 
+def get_data(name):
+    return request.form[name]
+
+
 @app.route('/popular', methods=['POST'])
 def popular():
-    start      = request.form['start']
-    end        = request.form['end']
-    time_frame = request.form['time']
+    start      = get_data('start')
+    end        = get_data('end')
+    time_frame = get_data('time')
 
     return "QUERY RESULTS"
 
 
 @app.route('/new', methods=['POST'])
 def new():
-    start      = request.form['start']
-    end        = request.form['end']
+    start      = get_data('start')
+    end        = get_data('end')
 
     return "QUERY RESULT"
 
