@@ -1,23 +1,8 @@
-<html lang="en">
-	<head>
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+{% extends "base.html" %}
 
-		<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-		<!-- Latest compiled JavaScript -->
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-		<!--Custom css file-->
-		<link rel="stylesheet" href="{{ url_for('static',  filename='top.css') }}">
-
-		<!--JS-->
+{% block body %}
 		<script src="{{ url_for('static',  filename='top.js') }}"></script>
 
-		<meta charset="utf-8" />
-	</head>
-	<body>
 		<div id="top" class="row">
 			<img id="logo" src="logo.jpeg" />
 			<div id="btnContainer">
@@ -29,5 +14,5 @@
 		</div>
 		<div id="best" class="well"><img id="bestImg" /></div>
 		<div id="all"></div>
-	</body>
-</html>
+
+{% endblock %}
