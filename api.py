@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for, send_from_directory
 import os
+import dbreader
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'images'
@@ -23,7 +24,7 @@ def popular():
         end = request.form['end']
 
         # Jsonify db output
-        return "TEST 1 2 3"
+        return make_json_list(fetch_data('upvotes'), 0, 100)
 
     return render_template('top.html')
 
@@ -35,7 +36,7 @@ def new():
         time_frame = request.form['time']
         start = request.form['start']
 
-        return "TEST 4 5 6"
+        return make_json_list(fetch_data('timestamp', '2000-03-26 00:00:01', '2003-03-26 00:00:01'))
 
     return "NEW DOT HTML"
 
