@@ -2,6 +2,8 @@ from flask import Flask, request, render_template, redirect, url_for, send_from_
 import os
 from dbreader import fetch_data
 import pymysql
+import time
+import datetime
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'images'
@@ -61,17 +63,16 @@ def upload_file():
 
         file = request.files['file']
         filename = file.filename
+        new_filename = None
 
         con = pymysql.connect(host='localhost', user='root', passwd='iloveyeeting', db='ratemybitches')
 
-        new_filename = None
-
         with con:
                 cur = con.cursor()
-                cur.execute("SELECT COUNT(*) FROM ratemybitches.img")
+                cur.execute("USE ratemybitches")
+                cur.execute("SELECT COUNT(*) FROM img")
                 rows = cur.fetchone()
-
-
+                cur.execute("INSERT INTO img (id, extension, time, upvotes) VALUES (" + str(rows[0]+1) + ", \'." + file_extension(filename=filename) + "\', \'" + str(datetime.datetime.fromtimestamp(int(time.time()))) + "\', 0)")
                 # So that if no file is given the server doesnt throw an error
                 try:
                     new_filename = \
