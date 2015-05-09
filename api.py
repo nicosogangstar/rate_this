@@ -52,12 +52,17 @@ def allowed_file(filename):
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
 
+    invalid_format = None
+
     if request.method == 'POST':
 
         file = request.files['file']
         filename = file.filename
 
-        if file and allowed_file(filename=filename):
+        invalid_format = \
+            True if not allowed_file(filename=filename) else False
+
+        if file and not invalid_format:
 
             file.save(
                 os.path.join(
@@ -71,6 +76,7 @@ def upload_file():
 
     return render_template(
         'upload.html',
+        error="Invalid file format" if invalid_format else None
     )
 
 
