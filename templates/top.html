@@ -8,7 +8,7 @@
 
 		<!-- Latest compiled JavaScript -->
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-		
+
 		<!--Custom css file-->
 		<link rel="stylesheet" href="{{ url_for('static',  filename='top.css') }}">
 
@@ -20,11 +20,14 @@
 	<body>
 		<div id="top" class="row">
 			<img id="logo" src="logo.jpeg" />
+			<div id="btnContainer">
+				<button id="signIn" class="btn btn-warning">Sign In</button>
+				<button id="signIn" class="btn">Sign Up</button>
+			</div>
 			<div id="page"><h1>Best of All Time</h1></div>
+
 		</div>
 		<div id="best" class="well"><img id="bestImg" /></div>
-		<div id="all">
-			<ul></ul>
-		</div>
+		<div id="all"></div>
 	</body>
 </html>
