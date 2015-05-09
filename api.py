@@ -22,12 +22,11 @@ def make_json_list(arg_list):
 def popular():
     if request.method == 'POST':
 
-        time_frame = request.form['time']
         start = request.form['start']
         end = request.form['end']
 
         # Jsonify db output
-        return make_json_list(fetch_data('upvotes'), 0, 100)
+        return make_json_list(fetch_data('upvotes'), start, end)
 
     return render_template('top.html')
 
@@ -36,10 +35,10 @@ def popular():
 def new():
     if request.method == 'POST':
 
-        time_frame = request.form['time']
         start = request.form['start']
+        end = request.form['end']
 
-        return make_json_list(fetch_data('timestamp', '2000-03-26 00:00:01', '2003-03-26 00:00:01'))
+        return make_json_list(fetch_data('timestamp', start, end))
 
     return "NEW DOT HTML"
 
@@ -72,7 +71,8 @@ def upload_file():
                 cur.execute("USE ratemybitches")
                 cur.execute("SELECT COUNT(*) FROM img")
                 rows = cur.fetchone()
-                cur.execute("INSERT INTO img (id, extension, time, upvotes) VALUES (" + str(rows[0]+1) + ", \'." + file_extension(filename=filename) + "\', \'" + str(datetime.datetime.fromtimestamp(int(time.time()))) + "\', 0)")
+                if allowed_file(filename = filename):
+                    cur.execute("INSERT INTO img (id, extension, time, upvotes) VALUES (" + str(rows[0]+1) + ", \'." + file_extension(filename=filename) + "\', \'" + str(datetime.datetime.fromtimestamp(int(time.time()))) + "\', 0)")
                 # So that if no file is given the server doesnt throw an error
                 try:
                     new_filename = \
