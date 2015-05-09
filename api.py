@@ -1,11 +1,19 @@
 from flask import Flask, request, render_template, redirect, url_for, send_from_directory
 import os
 import dbreader
+import pymysql
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'images'
 ALLOWED_EXTENSIONS = ('png', 'jpg', 'jpeg', 'gif')
 
+con = pymysql.connect(host='localhost', user='root', passwd='iloveyeeting', db='ratemybitches')
+with con:
+        cur = con.cursor()
+        cur.execute("SELECT COUNT(*) FROM ratemybitches.img")
+        rows = cur.fetchone()
+
+print(rows)
 
 def make_json_list(arg_list):
     template = '[{}],'
@@ -40,6 +48,7 @@ def new():
 
     return "NEW DOT HTML"
 
+# (rows + 1) + ".jpg"
 
 def file_extension(filename):
     return filename.rsplit('.', 1)[1]
