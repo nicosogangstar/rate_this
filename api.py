@@ -1,19 +1,12 @@
 from flask import Flask, request, render_template, redirect, url_for, send_from_directory
 import os
-import dbreader
+from dbreader import fetch_data
 import pymysql
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'images'
 ALLOWED_EXTENSIONS = ('png', 'jpg', 'jpeg', 'gif')
 
-con = pymysql.connect(host='localhost', user='root', passwd='iloveyeeting', db='ratemybitches')
-with con:
-        cur = con.cursor()
-        cur.execute("SELECT COUNT(*) FROM ratemybitches.img")
-        rows = cur.fetchone()
-
-print(rows)
 
 def make_json_list(arg_list):
     template = '[{}],'
@@ -69,6 +62,27 @@ def upload_file():
         file = request.files['file']
         filename = file.filename
 
+        con = pymysql.connect(host='localhost', user='root', passwd='iloveyeeting', db='ratemybitches')
+
+        new_filename = None
+
+        with con:
+                cur = con.cursor()
+                cur.execute("SELECT COUNT(*) FROM ratemybitches.img")
+                rows = cur.fetchone()
+
+
+                # So that if no file is given the server doesnt throw an error
+                try:
+                    new_filename = \
+                        str(rows[0] + 1) + '.' + file_extension(filename=filename)
+                except IndexError:
+                    return render_template(
+                        'upload.html',
+                        error="Please upload a file"
+                    )
+
+
         invalid_format = \
             True if not allowed_file(filename=filename) else False
 
@@ -76,12 +90,12 @@ def upload_file():
 
             file.save(
                 os.path.join(
-                    app.config['UPLOAD_FOLDER'], filename
+                    app.config['UPLOAD_FOLDER'], new_filename
                 )
             )
 
             return redirect(
-                url_for('uploaded_file', filename=filename)
+                url_for('uploaded_file', filename=new_filename)
             )
 
     return render_template(
