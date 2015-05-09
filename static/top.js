@@ -1,4 +1,5 @@
 function get_popular(timeFrame, start, end){
+	alert("working");
 	$.ajax({
 		"method":"POST",
 		"url":"popular",
@@ -10,7 +11,7 @@ function get_popular(timeFrame, start, end){
 
 		//return handlers
 		"success":function( response ){
-			console.log(response);
+			alert("RESPONSE: "+response);
 			if(response.img.len == response.points.len){
 				for(var i=0; i<response.img.len; i++){
 					var item = "<img id='image' src='"+response.img[i]+"' score='"+response.points[i]+"' />";
@@ -22,7 +23,7 @@ function get_popular(timeFrame, start, end){
 			}
 		},
 		"error":function(){
-			console.log("Kek u ded D:");
+			alert("Kek u ded D:");
 		}
 	});
 }
@@ -30,7 +31,7 @@ function get_popular(timeFrame, start, end){
 function get_newest(start, end){
 	$.ajax({
 		method:"POST",
-		url:"newest",
+		url:"new",
 		data: {
 			"start":start,
 			"end":end
