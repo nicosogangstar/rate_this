@@ -1,7 +1,7 @@
 import pymysql
 
 def fetch_data(strcolumn = 'id', start=1, end=1):
-	con = pymysql.connect(host='localhost', user='root', passwd='iloveyeeting', db='ratemybitches')
+	con = pymysql.connect(host='localhost', user='root', passwd='iloveyeeting', db='ratethis')
 	result = ''
 	if strcolumn=='id':
 

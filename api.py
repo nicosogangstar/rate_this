@@ -64,11 +64,11 @@ def upload_file():
         filename = file.filename
         new_filename = None
 
-        con = pymysql.connect(host='localhost', user='root', passwd='iloveyeeting', db='ratemybitches')
+        con = pymysql.connect(host='localhost', user='root', passwd='iloveyeeting', db='ratethis')
 
         with con:
                 cur = con.cursor()
-                cur.execute("USE ratemybitches")
+                cur.execute("USE ratethis")
                 cur.execute("SELECT COUNT(*) FROM img")
                 rows = cur.fetchone()
                 if allowed_file(filename = filename):
