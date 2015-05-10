@@ -9,6 +9,11 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'images'
 ALLOWED_EXTENSIONS = ('png', 'jpg', 'jpeg', 'gif')
 
+#
+#
+# fetching mysql data
+#
+#
 
 def make_json_list(arg_list):
     template = '[{}],'
@@ -42,7 +47,11 @@ def new():
 
     return "NEW DOT HTML"
 
-# (rows + 1) + ".jpg"
+#
+#
+# File upload, format, and db update
+#
+#
 
 def file_extension(filename):
     return filename.rsplit('.', 1)[1]

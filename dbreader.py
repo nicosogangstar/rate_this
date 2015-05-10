@@ -1,4 +1,10 @@
 import pymysql
+import bcrypt
+#
+#
+# password verification!
+#
+#
 
 def fetch_data(strcolumn = 'id', start=1, end=1):
 	con = pymysql.connect(host='localhost', user='root', passwd='iloveyeeting', db='ratethis')
@@ -34,6 +40,29 @@ def fetch_data(strcolumn = 'id', start=1, end=1):
 	cur.close()
 	con.close()
 	return result[0:-1].split()
+
+#
+#
+# password verification!
+#
+#
+
+def check_password(username='', password=''):
+	if username!='' and password!='':
+		con = pymysql.connect(host='localhost', user='root', passwd='iloveyeeting', db='ratethis')
+		
+		with con:
+				cur = con.cursor()
+				cur.execute("SELECT password FROM users WHERE username=\'" + username + "\'")
+				hashed = cur.fetchone()[0]
+	cur.close()
+	con.close()
+
+	if bcrypt.hashpw(password, hashed) == hashed:
+		return True
+	else:
+		return False
+        
 
 # print(fetch_data('timestamp', '2000-03-26 00:00:01', '2003-03-26 00:00:01'))
 # print(fetch_data('id', 3, 5))
